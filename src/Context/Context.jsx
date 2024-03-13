@@ -11,6 +11,7 @@ export const useWriteContext = () => {
 export const WriteContextProvider = (props) => {
    
     const [write, setWrite] = useState([]);
+    //  const [data, setData] = useState('');
     const [itemIndex,setItemIndex]=useState(0);
 
     return (

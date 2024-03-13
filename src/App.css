@@ -60,6 +60,9 @@ border-right: 1px solid gray;
 .delete-icon{
   cursor: pointer;
   color: rgb(10, 0, 0);
+  z-index: 10;
+  padding: 10px;
+  cursor: pointer;
 }
 .left-items{
   display: flex;
@@ -67,12 +70,16 @@ border-right: 1px solid gray;
   justify-content: space-between;
   background-color: #8585ff;
   border-bottom: 1px solid black;
-  padding: 10px;
+ 
 }
 .left-items p{
   color: white;
   font-size: 20px;
   font-weight: 800;
+  height:100%;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
 }
 
 

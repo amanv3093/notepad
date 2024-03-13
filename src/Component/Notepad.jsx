@@ -4,15 +4,17 @@ import Left from './Left';
 import Right from './Right';
 
 function Notepad() {
-    const [data, setData] = useState([]);
+   
     
     
     const { write, setWrite } = useWriteContext(); 
     
     const createTab = () => {
         setWrite([...write, { 
-            title: 'Enter title here',
-            data:''
+            title: '# Enter title here',
+            data:[]
+            
+            
             
          }]);
     };

@@ -3,18 +3,33 @@ import React from 'react';
 import { useWriteContext } from '../Context/Context';
 
 function Left({ createTab }) {
-    const { write, setWrite, itemIndex, setItemIndex } = useWriteContext();
-    console.log(itemIndex);
+    const { write, setWrite ,itemIndex,setItemIndex} = useWriteContext();
+    
 
     const deleteTab = (index) => {
-        console.log(index);
         const updatedWrite = write.filter((_,idx) => index!== idx);
+        if(index<=updatedWrite.length-1){
+            setItemIndex(index);
+            
+        }else{
+            setItemIndex(0);
+         
+        }
         setWrite(updatedWrite);
+
+
+        
+
     };
 
     const checkTab = (index) => {
+       
         setItemIndex(index);
+        
     };
+
+  
+
 
     return (
         <div className='left'>
@@ -24,13 +39,11 @@ function Left({ createTab }) {
             </div>
             <div className='left-items-box'>
                 {write.map((note, index) => (
-                    <div className='left-items' key={note.id} onClick={() => checkTab(index)}>
+                    <div className='left-items' key={note.id} >
                         
-                        <p>{note.title}</p>
-                        {
-                            console.log('aman')
-                        }
-                        <span onClick={() => deleteTab(index)} className="material-symbols-outlined delete-icon">delete</span>
+                        <p onClick={() => checkTab(index)}>{note.title}</p>
+                        
+                        <span  onClick={() => deleteTab(index)} className="material-symbols-outlined delete-icon">delete</span>
                     </div>
                 ))}
             </div>
