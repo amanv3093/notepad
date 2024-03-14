@@ -11,13 +11,12 @@ function Right() {
     useEffect(() => {
         const storedData = localStorage.getItem('write');
         if (storedData) {
-          setWrite(storedData);
+          setWrite(JSON.parse(storedData));
         }
-      }, []); 
-    
+      }, [setWrite]);
     
       useEffect(() => {
-        localStorage.setItem('data', write);
+        localStorage.setItem('write', JSON.stringify(write));
       }, [write]);
     
 
