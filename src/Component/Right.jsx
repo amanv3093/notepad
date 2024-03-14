@@ -1,9 +1,24 @@
 import React,{useEffect, useState} from 'react'
 import { useWriteContext } from '../Context/Context'
+
+import {createRoot} from 'react-dom/client'
+import Markdown from 'react-markdown'
 function Right() {
     let {write,setWrite,itemIndex,setItemIndex}=useWriteContext();
     let [currentLine,setCurrentLine]=useState(1)
-    // console.log("itemIndex"+itemIndex);
+    let [show,setShow]=useState(true)
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('write');
+        if (storedData) {
+          setWrite(storedData);
+        }
+      }, []); 
+    
+    
+      useEffect(() => {
+        localStorage.setItem('data', write);
+      }, [write]);
     
 
 
@@ -35,6 +50,7 @@ function Right() {
             
            
         }
+        console.log(write);
 
         
 
@@ -88,6 +104,12 @@ function Right() {
             updatedWrite[itemIndex].data[currentLine] = `> ${updatedWrite[itemIndex].data[currentLine]}`;
             setWrite(updatedWrite);
         }
+        if(id === 'dash5'){
+            let updatedWrite = [...write];
+            
+            updatedWrite[itemIndex].data[currentLine] = ` ' ${updatedWrite[itemIndex].data[currentLine]} '`;
+            setWrite(updatedWrite);
+        }
 
         if(id === 'imgClick'){
             let updatedWrite = [...write];
@@ -120,7 +142,10 @@ function Right() {
     };
 
 
-    
+    const togglePreview = (previewMode) => {
+        setShow(previewMode);
+    };
+
 
 
   return (
@@ -128,11 +153,11 @@ function Right() {
     <header>
         <ul>
             <li>
-                <button>Write</button>
+                <button onClick={()=>togglePreview(true)}>Write</button>
             </li>
 
             <li>
-                <button>Preview</button>
+                <button onClick={()=>togglePreview(false)}>Preview</button>
             </li>
            
         </ul>
@@ -168,11 +193,11 @@ function Right() {
             </li>
 
             <li>
-                <button id='imgClick' onClick={() => property('imgClick')}><svg class="svg-icon" aria-hidden="true" data-prefix="fas" data-icon="code" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"></path></svg></button>
+                <button id='dash5' onClick={() => property('dash5')}><svg class="svg-icon" aria-hidden="true" data-prefix="fas" data-icon="code" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z"></path></svg></button>
             </li>
 
             <li>
-                <button id='dash2' onClick={() => property('dash2')}><svg class="svg-icon" aria-hidden="true" data-prefix="fas" data-icon="image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"></path></svg></button>
+                <button id='imgClick' onClick={() => property('imgClick')}><svg class="svg-icon" aria-hidden="true" data-prefix="fas" data-icon="image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"></path></svg></button>
             </li>
 
         </ul>
@@ -196,7 +221,14 @@ function Right() {
     </header>
 
     <div className='right-textarea'>
-             <textarea value={write[itemIndex].data.join('\n')} onChange={writeText} />
+        {
+            show?(
+                <textarea id='text' value={write[itemIndex].data.join('\n')} onChange={writeText} />
+            ):(
+                <Markdown>{write[itemIndex].data.join('\n')}</Markdown>
+            )
+        }
+             
          
     </div>
       
@@ -205,6 +237,3 @@ function Right() {
 }
 
 export default Right
-
-
-
